@@ -1,0 +1,15 @@
+#!/bin/bash
+as -g -o read.o read.s
+as -g -o write.o write.s
+as -g -o read-records.o read-records.s
+as -g -o write-records.o write-records.s
+as -g -o count-chars.o count-chars.s
+as -g -o write-newline.o write-newline.s
+ld  write.o write-records.o count-chars.o write-newline.o -o write-records
+ld  read-records.o read.o count-chars.o write-newline.o -o read-records
+
+
+
+
+
+
