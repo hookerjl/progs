@@ -114,6 +114,16 @@ ret
 allocate:
 pushl %ebp #standard function stuff
 movl %esp, %ebp
+
+# if current_break == 0 call allocate_init
+movl current_break,%eax
+cmpl $0,%eax
+jne run_alloc
+call allocate_init
+
+run_alloc:
+
+
 movl ST_MEM_SIZE(%ebp), %ecx #%ecx will hold the size
 #we are looking for (which is the first
 #and only parameter)
