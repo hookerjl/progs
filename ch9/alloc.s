@@ -28,7 +28,7 @@ heap_begin:
 #This points to one location past the memory we are managing
 current_break:
 .long 0
-msg: .ascii "malloc called\0"
+msg: .ascii "allocate  called\0"
 
 ######STRUCTURE INFORMATION####
 #size of space for memory region header
