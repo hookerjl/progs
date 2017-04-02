@@ -28,6 +28,8 @@ heap_begin:
 #This points to one location past the memory we are managing
 current_break:
 .long 0
+msg: .ascii "malloc called\0"
+
 ######STRUCTURE INFORMATION####
 #size of space for memory region header
 .equ HEADER_SIZE, 8
@@ -45,6 +47,9 @@ current_break:
 .equ SYS_BRK, 45 #system call number for the break
 #system call
 .equ LINUX_SYSCALL, 0x80 #make system calls easier to read
+.equ STDOUT, 1
+.equ SYS_WRITE, 4
+
 .section .text
 ##########FUNCTIONS############
 ##allocate_init##
@@ -114,6 +119,16 @@ ret
 allocate:
 pushl %ebp #standard function stuff
 movl %esp, %ebp
+#
+
+movl $STDOUT, %ebx
+movl $SYS_WRITE, %eax
+movl $14,%edx  # msg size
+movl $msg, %ecx
+int $LINUX_SYSCALL
+
+
+
 
 # if current_break == 0 call allocate_init
 movl current_break,%eax

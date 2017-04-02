@@ -10,6 +10,10 @@ as -g -o write-newline.o write-newline.s
 ld  write.o write-records.o count-chars.o write-newline.o -o write-records
 ld  alloc.o read-records.o read.o count-chars.o write-newline.o -o read-records
 
+as -g -o mem_mngr.o mem_mngr.s
+
+ld -shared  -o mem_mngr.so mem_mngr.o 
+
 
 
 

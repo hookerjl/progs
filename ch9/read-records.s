@@ -5,6 +5,8 @@
 file_name: .ascii "test.dat\0"
 max_age: .long 1
 record_buffer_ptr: .long 0
+msg123: .ascii "Hello\0"
+
 # --- bss ---
 .section .bss
 .lcomm record_buffer, RECORD_SIZE
@@ -24,7 +26,14 @@ movl %esp, %ebp
 #Allocate space to hold the file descriptors
 subl $8, %esp
 
-call allocate_init
+#call allocate_init
+movl $STDOUT, %ebx
+movl $SYS_WRITE, %eax
+movl $6,%edx  # msg size
+movl $msg123, %ecx
+int $LINUX_SYSCALL
+
+
 
 #Open the file
 movl $SYS_OPEN, %eax
